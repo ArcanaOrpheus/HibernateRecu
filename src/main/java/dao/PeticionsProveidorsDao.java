@@ -2,21 +2,20 @@ package dao;
 
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
-import database.Clients;
-import database.Direccio;
-import database.ComandaClient;
+import database.PeticionsProveidor;
+import database.Producte;
+import database.Proveidors;
 
-public class ClientDao extends GenericDao<Clients,Integer> implements IClientDao{
+public class PeticionsProveidorsDao extends GenericDao<PeticionsProveidor, Integer> implements IPeticionsProveidorsDao{
 
-
-	public boolean setComanda(Clients c, ComandaClient co) {
+	public boolean setProveidor(PeticionsProveidor pp, Proveidors p) {
 		Session session = sessionFactory.getCurrentSession();
-		c.getComandes().add(co);
-		co.setComprador(c);
+		pp.setProveidor(p);
+		p.getPeticionsProvedor().add(pp);
 		try {
 			session.beginTransaction();
-			session.saveOrUpdate(c);
-			session.saveOrUpdate(co);
+			session.saveOrUpdate(pp);
+			session.saveOrUpdate(p);
 			session.getTransaction().commit();
 			return true;
 		} catch (HibernateException e) {
@@ -27,17 +26,16 @@ public class ClientDao extends GenericDao<Clients,Integer> implements IClientDao
 			}
 			return false;
 		}
-
 	}
 
-	public boolean setAddress(Clients c, Direccio a) {
+	public boolean setProducte(PeticionsProveidor pp, Producte p) {
 		Session session = sessionFactory.getCurrentSession();
-		c.setAdreca(a);
-		a.setClient(c);
+		pp.setProducte(p);
+		p.getPeticioProveidor().add(pp);
 		try {
 			session.beginTransaction();
-			session.saveOrUpdate(c);
-			session.saveOrUpdate(a);
+			session.saveOrUpdate(pp);
+			session.saveOrUpdate(p);
 			session.getTransaction().commit();
 			return true;
 		} catch (HibernateException e) {
@@ -48,7 +46,6 @@ public class ClientDao extends GenericDao<Clients,Integer> implements IClientDao
 			}
 			return false;
 		}
-
 	}
 
 }

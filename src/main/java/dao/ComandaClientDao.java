@@ -3,20 +3,19 @@ package dao;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import database.Clients;
-import database.Direccio;
 import database.ComandaClient;
+import database.Producte;
 
-public class ClientDao extends GenericDao<Clients,Integer> implements IClientDao{
-
-
-	public boolean setComanda(Clients c, ComandaClient co) {
+public class ComandaClientDao extends GenericDao<ComandaClient, Integer> implements IComandaClientDao{
+	
+	public boolean setProducte(ComandaClient c, Producte p) {
 		Session session = sessionFactory.getCurrentSession();
-		c.getComandes().add(co);
-		co.setComprador(c);
+		c.getComandes().add(p);
+		p.getProducteComanda().add(p);
 		try {
 			session.beginTransaction();
 			session.saveOrUpdate(c);
-			session.saveOrUpdate(co);
+			session.saveOrUpdate(p);
 			session.getTransaction().commit();
 			return true;
 		} catch (HibernateException e) {
@@ -27,17 +26,16 @@ public class ClientDao extends GenericDao<Clients,Integer> implements IClientDao
 			}
 			return false;
 		}
-
 	}
 
-	public boolean setAddress(Clients c, Direccio a) {
+	public boolean setClient(ComandaClient c, Clients cl) {
 		Session session = sessionFactory.getCurrentSession();
-		c.setAdreca(a);
-		a.setClient(c);
+		c.setComprador(cl);
+		cl.getComandes().add(c);
 		try {
 			session.beginTransaction();
 			session.saveOrUpdate(c);
-			session.saveOrUpdate(a);
+			session.saveOrUpdate(cl);
 			session.getTransaction().commit();
 			return true;
 		} catch (HibernateException e) {
@@ -48,7 +46,6 @@ public class ClientDao extends GenericDao<Clients,Integer> implements IClientDao
 			}
 			return false;
 		}
-
 	}
 
 }

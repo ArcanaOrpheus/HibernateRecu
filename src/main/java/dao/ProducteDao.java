@@ -1,108 +1,94 @@
 package dao;
 
-import java.io.Serializable;
-import java.lang.reflect.ParameterizedType;
-import java.util.List;
-
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
 
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.query.Query;
+import database.ComandaClient;
+import database.Lot;
+import database.PeticionsProveidor;
+import database.Producte;
+
+public class ProducteDao extends GenericDao<Producte,Integer> implements IProducteDao{
 
 
-public class GenericDao<T, ID extends Serializable> implements IGenericDao<T, ID> {
-
-	SessionFactory sessionFactory;
-
-	// private final static Logger LOGGER =
-	// Logger.getLogger(GenericDao.class.getName());
-
-	public GenericDao() {
-		//sessionFactory = Utils.getSessionFactory();
-	}
-
-	public void saveOrUpdate(T entity) {
+	public boolean setLot(Producte p, Lot l) {
 		Session session = sessionFactory.getCurrentSession();
+		p.getLotes().add(l);
+		l.setProducte(p);
 		try {
 			session.beginTransaction();
-			session.saveOrUpdate(entity);
+			session.saveOrUpdate(p);
+			session.saveOrUpdate(l);
 			session.getTransaction().commit();
-
+			return true;
 		} catch (HibernateException e) {
 			e.printStackTrace();
 			if (session != null && session.getTransaction() != null) {
 				System.out.println("\n.......Transaction Is Being Rolled Back.......");
 				session.getTransaction().rollback();
 			}
-			e.printStackTrace();
-
+			return false;
 		}
-
 	}
 
-	public T get(ID id) {
+	public boolean setIngredient(Producte p, Producte p2) {
 		Session session = sessionFactory.getCurrentSession();
+		p.getComposicio().add(p2);
+		p2.getComposicio().add(p);
 		try {
 			session.beginTransaction();
-			T entity = (T) session.get(getEntityClass(), id);
+			session.saveOrUpdate(p);
+			session.saveOrUpdate(p2);
 			session.getTransaction().commit();
-
-			return entity;
+			return true;
 		} catch (HibernateException e) {
 			e.printStackTrace();
 			if (session != null && session.getTransaction() != null) {
 				System.out.println("\n.......Transaction Is Being Rolled Back.......");
 				session.getTransaction().rollback();
 			}
-			e.printStackTrace();
-			return null;
-
+			return false;
 		}
 	}
 
-	public void delete(ID id) {
+	public boolean setPeticio(Producte p, PeticionsProveidor pp) {
 		Session session = sessionFactory.getCurrentSession();
+		p.getPeticioProveidor().add(pp);
+		pp.setProducte(p);
 		try {
 			session.beginTransaction();
-			T entity = (T) session.get(getEntityClass(), id);
-			session.delete(entity);
+			session.saveOrUpdate(p);
+			session.saveOrUpdate(pp);
 			session.getTransaction().commit();
+			return true;
 		} catch (HibernateException e) {
 			e.printStackTrace();
 			if (session != null && session.getTransaction() != null) {
 				System.out.println("\n.......Transaction Is Being Rolled Back.......");
 				session.getTransaction().rollback();
 			}
-			e.printStackTrace();
-
+			return false;
 		}
 	}
 
-	public List<T> list() {
+	public boolean setComanda(Producte p, ComandaClient c) {
 		Session session = sessionFactory.getCurrentSession();
+		p.getProducteComanda().add(p); 
+		c.getComandes().add(p);
 		try {
-
-			Query query = session.createQuery("SELECT e FROM " + getEntityClass().getName() + " e");
-			List<T> entities = query.list();
-
-			return entities;
+			session.beginTransaction();
+			session.saveOrUpdate(c);
+			session.saveOrUpdate(p);
+			session.getTransaction().commit();
+			return true;
 		} catch (HibernateException e) {
 			e.printStackTrace();
 			if (session != null && session.getTransaction() != null) {
 				System.out.println("\n.......Transaction Is Being Rolled Back.......");
 				session.getTransaction().rollback();
 			}
-			e.printStackTrace();
-			return null;
-
+			return false;
 		}
 	}
 
-	private Class<T> getEntityClass() {
-		return (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
-	}
 }

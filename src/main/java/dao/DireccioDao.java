@@ -2,21 +2,21 @@ package dao;
 
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
-import database.Clients;
+
 import database.Direccio;
-import database.ComandaClient;
+import database.Proveidors;
+import database.Clients;
 
-public class ClientDao extends GenericDao<Clients,Integer> implements IClientDao{
+public class DireccioDao extends GenericDao<Direccio, Integer> implements IDireccioDao{
 
-
-	public boolean setComanda(Clients c, ComandaClient co) {
+	public boolean setProveidor(Direccio a, Proveidors p) {
 		Session session = sessionFactory.getCurrentSession();
-		c.getComandes().add(co);
-		co.setComprador(c);
+		a.setProveidor(p);
+		p.setAddress(a);
 		try {
 			session.beginTransaction();
-			session.saveOrUpdate(c);
-			session.saveOrUpdate(co);
+			session.saveOrUpdate(a);
+			session.saveOrUpdate(p);
 			session.getTransaction().commit();
 			return true;
 		} catch (HibernateException e) {
@@ -27,17 +27,16 @@ public class ClientDao extends GenericDao<Clients,Integer> implements IClientDao
 			}
 			return false;
 		}
-
 	}
 
-	public boolean setAddress(Clients c, Direccio a) {
+	public boolean setClient(Direccio a, Clients c) {
 		Session session = sessionFactory.getCurrentSession();
-		c.setAdreca(a);
 		a.setClient(c);
+		c.setAdreca(a);
 		try {
 			session.beginTransaction();
-			session.saveOrUpdate(c);
 			session.saveOrUpdate(a);
+			session.saveOrUpdate(c);
 			session.getTransaction().commit();
 			return true;
 		} catch (HibernateException e) {
@@ -48,7 +47,6 @@ public class ClientDao extends GenericDao<Clients,Integer> implements IClientDao
 			}
 			return false;
 		}
-
 	}
 
 }
