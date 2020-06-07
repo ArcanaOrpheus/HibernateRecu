@@ -19,13 +19,13 @@ public class Clients implements Serializable{
 
 	@Id
 	@Column(name="NIF")
-	private int NIF;
+	private String NIF;
 	
 	@Column(name="nom")
 	String nom;
 	
 	@Column(name="status")
-	Enum status;
+	boolean status;
 
 	/*/relacio 1 a n amb comanda*/
 	@OneToMany(mappedBy="comprador")
@@ -40,7 +40,7 @@ public class Clients implements Serializable{
 	
 	
 	
-	public Clients(int nIF, String nom, Enum status, Set<ComandaClient> comandes, Direccio adreca) {
+	public Clients(String nIF, String nom, boolean status, Set<ComandaClient> comandes, Direccio adreca) {
 		super();
 		NIF = nIF;
 		this.nom = nom;
@@ -49,11 +49,11 @@ public class Clients implements Serializable{
 		this.adreca = adreca;
 	}
 
-	public int getNIF() {
+	public String getNIF() {
 		return NIF;
 	}
 
-	public void setNIF(int nIF) {
+	public void setNIF(String nIF) {
 		NIF = nIF;
 	}
 
@@ -65,11 +65,11 @@ public class Clients implements Serializable{
 		this.nom = nom;
 	}
 
-	public Enum getStatus() {
+	public boolean getStatus() {
 		return status;
 	}
 
-	public void setStatus(Enum status) {
+	public void setStatus(boolean status) {
 		this.status = status;
 	}
 

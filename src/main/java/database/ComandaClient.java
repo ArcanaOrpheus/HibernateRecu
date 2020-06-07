@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import Enums.ComandaEstat;
 
 import javax.persistence.*;
 
@@ -15,19 +16,19 @@ import javax.persistence.*;
 public class ComandaClient implements Serializable{
 
 	@Id
-	@Column(name="id")
+	@Column(name="id", nullable = false)
 	private int id;
 	
 	@Temporal(TemporalType.DATE)
-	@Column(name="data_peticio")
+	@Column(name="data_peticio", nullable = false)
 	Date data_peticio;
 	
 	@Temporal(TemporalType.DATE)
-	@Column(name="data_limit")
+	@Column(name="data_limit", nullable = false)
 	Date data_limit;
 	
-	@Column(name="estat")
-	Enum estat;
+	@Column(name="estat", nullable = false)
+	ComandaEstat estat;
 	
 	@Column(name="ports")
 	int ports;
@@ -42,14 +43,13 @@ public class ComandaClient implements Serializable{
 	@ManyToOne(cascade=CascadeType.PERSIST)
 	private Clients comprador;
 	
-	public ComandaClient(int id, Date data_peticio, Date data_limit, Enum estat, int ports, Set<Producte> comandes,
+	public ComandaClient(int id, Date data_peticio, Date data_limit, ComandaEstat estat, Set<Producte> comandes,
 			Clients comprador) {
 		super();
 		this.id = id;
 		this.data_peticio = data_peticio;
 		this.data_limit = data_limit;
 		this.estat = estat;
-		this.ports = ports;
 		this.comandes = comandes;
 		this.comprador = comprador;
 	}
@@ -78,11 +78,11 @@ public class ComandaClient implements Serializable{
 		this.data_limit = data_limit;
 	}
 
-	public Enum getEstat() {
+	public ComandaEstat getEstat() {
 		return estat;
 	}
 
-	public void setEstat(Enum estat) {
+	public void setEstat(ComandaEstat estat) {
 		this.estat = estat;
 	}
 

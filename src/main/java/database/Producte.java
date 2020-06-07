@@ -12,6 +12,9 @@ import java.util.Set;
 
 import javax.persistence.*;
 
+import Enums.Tipus;
+import Enums.UnitatMesura;
+
 @Entity
 @Table(name="Producte")
 public class Producte implements Serializable{
@@ -27,7 +30,7 @@ public class Producte implements Serializable{
 	String descripcio_producte;
 	
 	@Column(name="preu")
-	int preu;
+	double preu;
 	
 	@Column(name="stock")
 	int stock;
@@ -61,10 +64,10 @@ public class Producte implements Serializable{
 
 	
 	
-	public Producte(int id, String nom_producte, String descripcio_producte, int preu, int stock, int stock_minim,
+	public Producte(int id, String nom_producte, String descripcio_producte, double preu, int stock, int stock_minim,
 			Enum tipus_producte, Enum unitat_mesura, Set<Lot> lotes, Set<Producte> composicio,
 			Set<PeticionsProveidor> peticioProveidor, Set<Producte> producteComanda) {
-		super();
+		
 		this.id = id;
 		this.nom_producte = nom_producte;
 		this.descripcio_producte = descripcio_producte;
@@ -77,6 +80,17 @@ public class Producte implements Serializable{
 		this.composicio = composicio;
 		this.peticioProveidor = peticioProveidor;
 		this.producteComanda = producteComanda;
+	}
+	
+	// Another necessary generator for this class
+	public Producte(int id, String nomProducte, int stock, int stockMin, UnitatMesura unitat, Tipus vendible, double preuVenda) {
+		this.id=id;
+		nom_producte = nomProducte;
+		this.stock=stock;
+		stock_minim=stockMin;
+		this.unitat_mesura=unitat;
+		this.tipus_producte=vendible;
+		preu=preuVenda;
 	}
 
 	public int getId() {
@@ -103,11 +117,11 @@ public class Producte implements Serializable{
 		this.descripcio_producte = descripcio_producte;
 	}
 
-	public int getPreu() {
+	public double getPreu() {
 		return preu;
 	}
 
-	public void setPreu(int preu) {
+	public void setPreu(double preu) {
 		this.preu = preu;
 	}
 

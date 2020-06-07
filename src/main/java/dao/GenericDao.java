@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
+
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
@@ -18,11 +19,8 @@ public class GenericDao<T, ID extends Serializable> implements IGenericDao<T, ID
 
 	SessionFactory sessionFactory;
 
-	// private final static Logger LOGGER =
-	// Logger.getLogger(GenericDao.class.getName());
-
 	public GenericDao() {
-		//sessionFactory = Utils.getSessionFactory();
+		sessionFactory = Utils.getSessionFactory();
 	}
 
 	public void saveOrUpdate(T entity) {

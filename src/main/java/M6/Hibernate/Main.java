@@ -11,11 +11,11 @@ public class Main {
 	
     public static void main( String[] args )
     {
-        //Database generator
-        SchemaGenerator.execute();
+        /*Database generator: run only first time for saving time, can be run any number of times tho
+        SchemaGenerator.execute();*/
         //session start
         session = Core.getNewSession();
-        
+        App.DaoTest();
     }
     
     
