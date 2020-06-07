@@ -40,7 +40,7 @@ public class ComandaClient implements Serializable{
 	//relacio n a 1 amb client
 	@JoinColumn(name="comprador", nullable=false)
 	@ManyToOne(cascade=CascadeType.PERSIST)
-	private Clients client;
+	private Clients comprador;
 	
 	public ComandaClient(int id, Date data_peticio, Date data_limit, Enum estat, int ports, Set<Producte> comandes,
 			Clients comprador) {
@@ -51,7 +51,7 @@ public class ComandaClient implements Serializable{
 		this.estat = estat;
 		this.ports = ports;
 		this.comandes = comandes;
-		this.client = comprador;
+		this.comprador = comprador;
 	}
 
 	public int getId() {
@@ -103,11 +103,11 @@ public class ComandaClient implements Serializable{
 	}
 
 	public Clients getComprador() {
-		return client;
+		return comprador;
 	}
 
 	public void setComprador(Clients comprador) {
-		this.client = comprador;
+		this.comprador = comprador;
 	}
 	
 }
