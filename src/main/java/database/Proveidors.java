@@ -7,6 +7,9 @@ import java.util.Set;
 
 import javax.persistence.*;
 
+import Enums.ProveidorTipus;
+import Enums.Stat;
+
 
 @Entity
 @Table(name="Proveidors")
@@ -17,7 +20,7 @@ public class Proveidors implements Serializable{
 	protected int idProveidor;
 	
 	@Column(name="CIFF")
-	private int CIFF;
+	private String CIFF;
 	
 	@Column(name="nom")
 	String nom;
@@ -29,14 +32,14 @@ public class Proveidors implements Serializable{
 	String personaContacte;
 	
 	@Column(name="status")
-	Enum status;
+	Stat status;
 	
 	@Column(name="tipus")
-	Enum tipus;
+	ProveidorTipus tipus;
 	
 	//relacio 1 a 1 amb address
+	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "address", nullable = false)
-	@OneToOne(cascade = CascadeType.PERSIST)
 	private Direccio address;
 
 	//relacio 1 a n amb peticioproveidor
@@ -54,8 +57,8 @@ public class Proveidors implements Serializable{
 
 	
 	
-	public Proveidors(int idProveidor, int cIFF, String nom, String telefon, String personaContacte, Enum status,
-			Enum tipus, Direccio address, Set<PeticionsProveidor> peticionsProvedor) {
+	public Proveidors(int idProveidor, String cIFF, String nom, String telefon, String personaContacte, Stat status,
+			ProveidorTipus tipus, Direccio address, Set<PeticionsProveidor> peticionsProvedor) {
 		super();
 		this.idProveidor = idProveidor;
 		CIFF = cIFF;
@@ -68,7 +71,7 @@ public class Proveidors implements Serializable{
 		this.peticionsProvedor = peticionsProvedor;
 	}
 
-
+	
 
 	public int getIdProveidor() {
 		return idProveidor;
@@ -78,11 +81,11 @@ public class Proveidors implements Serializable{
 		this.idProveidor = idProveidor;
 	}
 
-	public int getCIFF() {
+	public String getCIFF() {
 		return CIFF;
 	}
 
-	public void setCIFF(int cIFF) {
+	public void setCIFF(String cIFF) {
 		CIFF = cIFF;
 	}
 
@@ -110,19 +113,19 @@ public class Proveidors implements Serializable{
 		this.personaContacte = personaContacte;
 	}
 
-	public Enum getStatus() {
+	public Stat getStatus() {
 		return status;
 	}
 
-	public void setStatus(Enum status) {
+	public void setStatus(Stat status) {
 		this.status = status;
 	}
 
-	public Enum getTipus() {
+	public ProveidorTipus getTipus() {
 		return tipus;
 	}
 
-	public void setTipus(Enum tipus) {
+	public void setTipus(ProveidorTipus tipus) {
 		this.tipus = tipus;
 	}
 

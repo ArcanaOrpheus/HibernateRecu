@@ -39,18 +39,18 @@ public class Direccio implements Serializable{
 	@Column(name="longitud")
 	int longitud;
 
-	/*/relacio 1 a 1 amb partner*/
+	/*relacio 1 a 1 amb partner
+	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "partner", nullable = false)
-	@OneToOne(cascade = CascadeType.PERSIST)
 	private Proveidors proveidor;
 	
-	/*/relacio 1 a 1 amb client*/
+	/relacio 1 a 1 amb client
+	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "client", nullable = false)
-	@OneToOne(cascade = CascadeType.PERSIST)
-	private Clients client;
+	private Clients client;*/
 	
 	public Direccio(int id, int bloc, String carrer, String poblacio, int codi_postal, String pais, int latitud,
-			int longitud, Proveidors proveidor, Clients client) {
+			int longitud) {
 		super();
 		this.id = id;
 		this.bloc = bloc;
@@ -60,10 +60,22 @@ public class Direccio implements Serializable{
 		this.pais = pais;
 		this.latitud = latitud;
 		this.longitud = longitud;
-		this.proveidor = proveidor;
-		this.client = client;
+		/*this.proveidor = proveidor;
+		this.client = client;*/
 	}
-
+	//Generator without client or proveidor, also sets latitud and longitud both to 0
+	public Direccio(int id, int bloc, String carrer, String poblacio, int codi_postal, String pais) {
+		super();
+		this.id = id;
+		this.bloc = bloc;
+		this.carrer = carrer;
+		this.poblacio = poblacio;
+		this.codi_postal = codi_postal;
+		this.pais = pais;
+		this.latitud = 0;
+		this.longitud = 0;
+	}
+	
 	public int getId() {
 		return id;
 	}
@@ -128,7 +140,7 @@ public class Direccio implements Serializable{
 		this.longitud = longitud;
 	}
 
-	public Proveidors getProveidor() {
+	/*public Proveidors getProveidor() {
 		return proveidor;
 	}
 
@@ -142,5 +154,5 @@ public class Direccio implements Serializable{
 
 	public void setClient(Clients client) {
 		this.client = client;
-	}
+	}*/
 }

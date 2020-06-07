@@ -31,13 +31,11 @@ public class ClientDao extends GenericDao<Clients,Integer> implements IClientDao
 	}
 
 	public boolean setAddress(Clients c, Direccio a) {
-		Session session = sessionFactory.getCurrentSession();
+ 		Session session = sessionFactory.getCurrentSession();
 		c.setAdreca(a);
-		a.setClient(c);
 		try {
 			session.beginTransaction();
 			session.saveOrUpdate(c);
-			session.saveOrUpdate(a);
 			session.getTransaction().commit();
 			return true;
 		} catch (HibernateException e) {

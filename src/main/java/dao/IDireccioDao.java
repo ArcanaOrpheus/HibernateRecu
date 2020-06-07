@@ -16,8 +16,4 @@ public interface IDireccioDao extends IGenericDao<Direccio, Integer>{
 
 	void delete(Integer id);
 	
-	boolean setProveidor(Direccio a, Proveidors p);
-	
-	boolean setClient(Direccio a, Clients c);
-
 }

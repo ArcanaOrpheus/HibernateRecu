@@ -39,10 +39,10 @@ public class Producte implements Serializable{
 	int stock_minim;
 	
 	@Column(name="tipus_producte")
-	Enum tipus_producte;
+	Tipus tipus_producte;
 	
 	@Column(name="unitat_mesura")
-	Enum unitat_mesura;
+	UnitatMesura unitat_mesura;
 
 	//relacio 1 a n amb lot
 	@OneToMany(mappedBy="producte")
@@ -65,7 +65,7 @@ public class Producte implements Serializable{
 	
 	
 	public Producte(int id, String nom_producte, String descripcio_producte, double preu, int stock, int stock_minim,
-			Enum tipus_producte, Enum unitat_mesura, Set<Lot> lotes, Set<Producte> composicio,
+			Tipus tipus_producte, UnitatMesura unitat_mesura, Set<Lot> lotes, Set<Producte> composicio,
 			Set<PeticionsProveidor> peticioProveidor, Set<Producte> producteComanda) {
 		
 		this.id = id;
@@ -141,19 +141,19 @@ public class Producte implements Serializable{
 		this.stock_minim = stock_minim;
 	}
 
-	public Enum getTipus_producte() {
+	public Tipus getTipus_producte() {
 		return tipus_producte;
 	}
 
-	public void setTipus_producte(Enum tipus_producte) {
+	public void setTipus_producte(Tipus tipus_producte) {
 		this.tipus_producte = tipus_producte;
 	}
 
-	public Enum getUnitat_mesura() {
+	public UnitatMesura getUnitat_mesura() {
 		return unitat_mesura;
 	}
 
-	public void setUnitat_mesura(Enum unitat_mesura) {
+	public void setUnitat_mesura(UnitatMesura unitat_mesura) {
 		this.unitat_mesura = unitat_mesura;
 	}
 

@@ -32,14 +32,10 @@ public class Clients implements Serializable{
 	Set<ComandaClient> comandes = new HashSet<ComandaClient>();
 
 	/*/relacio 1 a 1 amb adreça*/
-	@JoinColumn(name="Adreca", nullable=false)
-	@OneToOne(cascade = CascadeType.PERSIST)
+	@JoinColumn(name="Direccio", nullable=false)
+	@OneToOne(cascade = CascadeType.ALL)
 	private Direccio adreca;
-	
-	
-	
-	
-	
+		
 	public Clients(String nIF, String nom, boolean status, Set<ComandaClient> comandes, Direccio adreca) {
 		super();
 		NIF = nIF;

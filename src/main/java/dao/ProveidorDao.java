@@ -11,10 +11,8 @@ public class ProveidorDao extends GenericDao<Proveidors,Integer> implements IPro
 	public boolean setAddress(Proveidors p, Direccio a) {
 		Session session = sessionFactory.getCurrentSession();
 		p.setAddress(a);
-		a.setProveidor(p);
 		try {
 			session.beginTransaction();
-			session.saveOrUpdate(a);
 			session.saveOrUpdate(p);
 			session.getTransaction().commit();
 			return true;

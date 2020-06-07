@@ -34,8 +34,8 @@ public class ComandaClientDao extends GenericDao<ComandaClient, Integer> impleme
 		cl.getComandes().add(c);
 		try {
 			session.beginTransaction();
-			session.saveOrUpdate(c);
 			session.saveOrUpdate(cl);
+			session.saveOrUpdate(c);
 			session.getTransaction().commit();
 			return true;
 		} catch (HibernateException e) {

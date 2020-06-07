@@ -1,10 +1,10 @@
-drop table if exists Clients;
-drop table if exists Comanda_Client;
-drop table if exists Direccio;
-drop table if exists Lot;
-drop table if exists Peticions_Proveidor;
-drop table if exists Producte;
-drop table if exists Proveidors;
+drop table if exists Clients CASCADE;
+drop table if exists Comanda_Client CASCADE;
+drop table if exists Direccio CASCADE;
+drop table if exists Lot CASCADE;
+drop table if exists Peticions_Proveidor CASCADE;
+drop table if exists Producte CASCADE;
+drop table if exists Proveidors CASCADE;
 create table Clients (NIF integer not null, nom varchar(255), status tinyblob, primary key (NIF));
 create table Comanda_Client (id integer not null, data_limit datetime, data_peticio datetime, estat tinyblob, ports integer, primary key (id));
 create table Direccio (id integer not null, bloc integer, carrer varchar(255), codi_postal integer, latitud integer, longitud integer, pais varchar(255), poblacio varchar(255), primary key (id));
